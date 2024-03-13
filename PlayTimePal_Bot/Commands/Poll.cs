@@ -24,7 +24,7 @@ namespace PlayTimePal_Bot.Commands
 										$"{emojiOptions[1]} | Игрок 2 \n" +
 										$"{emojiOptions[2]} | Игрок 3 \n" +
 										$"{emojiOptions[3]} | Игрок 4 \n";
-
+			 
 			var pollMessage = new DiscordEmbedBuilder
 			{
 				Color = DiscordColor.Blue,
