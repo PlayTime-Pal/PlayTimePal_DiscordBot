@@ -1,5 +1,7 @@
 ﻿using DSharpPlus;
 using DSharpPlus.CommandsNext;
+using DSharpPlus.SlashCommands;
+using PlayTimePal_Bot.Commands;
 using PlayTimePal_Bot.config;
 
 public class Program
@@ -23,6 +25,13 @@ public class Program
 		Client = new DiscordClient(discordConfig);
 
 		Client.Ready += Client_Ready;
+
+		
+		var slashCommandConfig = Client.UseSlashCommands();
+		slashCommandConfig.RegisterCommands<Poll>();
+
+
+
 
 		await Client.ConnectAsync();
 		await Task.Delay(-1);

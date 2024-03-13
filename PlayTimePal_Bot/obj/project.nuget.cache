@@ -1,11 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "d0rWStZOusMSpBNdbnV7gm7kvfRZw2nL0o1Styy6/917wqh2TOQvlnCnihzXBBFdcE5UvvVmGb98imXzm/K6lw==",
+  "dgSpecHash": "tMnXItrvTmJ3DzqEa3EYiQHuJZTDlv03GNOUh74X1WqWcnP/F7x3mB6pZg0Sf6hw/8yn1hA5rltD51JSYE18Hw==",
   "success": true,
   "projectFilePath": "C:\\Users\\david\\source\\repos\\PlayTimePal_Bot\\PlayTimePal_Bot\\PlayTimePal_Bot.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\david\\.nuget\\packages\\concurrenthashset\\1.3.0\\concurrenthashset.1.3.0.nupkg.sha512",
     "C:\\Users\\david\\.nuget\\packages\\dsharpplus\\4.4.6\\dsharpplus.4.4.6.nupkg.sha512",
     "C:\\Users\\david\\.nuget\\packages\\dsharpplus.commandsnext\\4.4.6\\dsharpplus.commandsnext.4.4.6.nupkg.sha512",
+    "C:\\Users\\david\\.nuget\\packages\\dsharpplus.interactivity\\4.4.6\\dsharpplus.interactivity.4.4.6.nupkg.sha512",
+    "C:\\Users\\david\\.nuget\\packages\\dsharpplus.slashcommands\\4.4.6\\dsharpplus.slashcommands.4.4.6.nupkg.sha512",
     "C:\\Users\\david\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\5.0.1\\microsoft.extensions.dependencyinjection.5.0.1.nupkg.sha512",
     "C:\\Users\\david\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\5.0.0\\microsoft.extensions.dependencyinjection.abstractions.5.0.0.nupkg.sha512",
     "C:\\Users\\david\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\5.0.0\\microsoft.extensions.logging.abstractions.5.0.0.nupkg.sha512",
