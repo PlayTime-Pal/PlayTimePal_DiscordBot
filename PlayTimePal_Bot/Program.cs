@@ -30,9 +30,6 @@ public class Program
 		var slashCommandConfig = Client.UseSlashCommands();
 		slashCommandConfig.RegisterCommands<Poll>();
 
-
-
-
 		await Client.ConnectAsync();
 		await Task.Delay(-1);
 	}

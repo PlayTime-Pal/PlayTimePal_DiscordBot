@@ -1,8 +1,10 @@
-﻿using DSharpPlus.Entities;
+﻿using DSharpPlus;
+using DSharpPlus.Entities;
 using DSharpPlus.Interactivity.Extensions;
 using DSharpPlus.Net.Models;
 using DSharpPlus.SlashCommands;
 using System.Runtime.CompilerServices;
+using System.Threading.Channels;
 
 namespace PlayTimePal_Bot.Commands
 {
@@ -13,31 +15,45 @@ namespace PlayTimePal_Bot.Commands
 		{
 			await ctx.DeferAsync();
 
-			var count = ctx.Channel.Users.Count;
+			
+			int usersAmount = ctx.Channel.Users.Count;
+			string[] playersArray = PlayerMessageGenerator(usersAmount);
 
-			DiscordEmoji[] emojiOptions = { DiscordEmoji.FromName(ctx.Client, ":one:"),
-											DiscordEmoji.FromName(ctx.Client, ":two:"),
-											DiscordEmoji.FromName(ctx.Client, ":three:"),
-											DiscordEmoji.FromName(ctx.Client, ":four:") };
-
-			string optionsDescription = $"{emojiOptions[0]} | Игрок 1 \n" +
-										$"{emojiOptions[1]} | Игрок 2 \n" +
-										$"{emojiOptions[2]} | Игрок 3 \n" +
-										$"{emojiOptions[3]} | Игрок 4 \n";
-			 
 			var pollMessage = new DiscordEmbedBuilder
 			{
 				Color = DiscordColor.Blue,
 				Title = $"Голосование",
-				Description = optionsDescription
+				Description = string.Join("\n", playersArray)
 			};
+			
+			var builder = ButtonGenerator(usersAmount, playersArray);
+			builder.AddEmbed(pollMessage);
 
-			var sentPoll = await ctx.Channel.SendMessageAsync(embed : pollMessage);
-			foreach (DiscordEmoji e in emojiOptions)
+			var sentPoll = await ctx.Channel.SendMessageAsync(builder);
+		}
+
+		private static string[] PlayerMessageGenerator(int usersAmount)
+		{
+			string[] playerArray = new string[15];
+
+			for (int i = 0; i < usersAmount; i++)
 			{
-				await sentPoll.CreateReactionAsync(e);
+				playerArray[i] = $"Игрок {i + 1}";
 			}
 
+			return playerArray;
+		}
+
+		private static DiscordMessageBuilder ButtonGenerator(int usersAmount, string[] message)
+		{
+			var builder = new DiscordMessageBuilder();
+
+			for (int i = 0; i < usersAmount; i++)
+			{
+				builder.AddComponents(new DiscordButtonComponent(ButtonStyle.Primary, $"{i}_top", message[i]));
+			}
+
+			return builder;
 		}
 	}
 }
