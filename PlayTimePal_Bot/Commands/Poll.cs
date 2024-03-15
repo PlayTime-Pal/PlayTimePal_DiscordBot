@@ -14,7 +14,6 @@ namespace PlayTimePal_Bot.Commands
 		public async Task PollSL(InteractionContext ctx)
 		{
 			await ctx.DeferAsync();
-
 			
 			int usersAmount = ctx.Channel.Users.Count;
 			string[] playersArray = PlayerMessageGenerator(usersAmount);
