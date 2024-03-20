@@ -11,6 +11,7 @@ public class Program
 
 	public static async Task Main(string[] args)
 	{
+		//TODO: jsonreader создать в классе, класс имеет метод getToken ?
 		var jsonReader = new JSONReader();
 		await jsonReader.ReadJSON();
 
@@ -26,7 +27,7 @@ public class Program
 
 		Client.Ready += Client_Ready;
 
-		
+		//TODO: вытащить отсюда
 		var slashCommandConfig = Client.UseSlashCommands();
 		slashCommandConfig.RegisterCommands<Poll>();
 

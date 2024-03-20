@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PlayTimePal_Bot")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bdfec126c026e6e53a8e848196f2a7cbf3bcfc03")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7773eddbfe0d8a6e9b727c0dfe23c6b2ff2536e1")]
 [assembly: System.Reflection.AssemblyProductAttribute("PlayTimePal_Bot")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PlayTimePal_Bot")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

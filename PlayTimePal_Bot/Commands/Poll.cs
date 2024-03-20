@@ -3,6 +3,7 @@ using DSharpPlus.Entities;
 using DSharpPlus.Interactivity.Extensions;
 using DSharpPlus.Net.Models;
 using DSharpPlus.SlashCommands;
+using System.Reflection.Metadata;
 using System.Runtime.CompilerServices;
 using System.Threading.Channels;
 
@@ -16,42 +17,84 @@ namespace PlayTimePal_Bot.Commands
 			await ctx.DeferAsync();
 			
 			int usersAmount = ctx.Channel.Users.Count;
-			string[] playersArray = PlayerMessageGenerator(usersAmount);
+			var playersList = PlayerMessageGenerator(usersAmount);
 
 			var pollMessage = new DiscordEmbedBuilder
 			{
 				Color = DiscordColor.Blue,
 				Title = $"Голосование",
-				Description = string.Join("\n", playersArray)
+				Description = string.Join("\n", playersList)
 			};
 			
-			var builder = ButtonGenerator(usersAmount, playersArray);
+			var builder = ButtonGenerator(usersAmount, playersList);
 			builder.AddEmbed(pollMessage);
 
 			var sentPoll = await ctx.Channel.SendMessageAsync(builder);
+
+
+			ButtonHandler(ctx);
 		}
 
-		private static string[] PlayerMessageGenerator(int usersAmount)
+		private void ButtonHandler(InteractionContext ctx)
 		{
-			string[] playerArray = new string[15];
+			Dictionary<string, int> buttonClicks = new Dictionary<string, int>();
+
+			ctx.Client.ComponentInteractionCreated += async (s, e) =>
+			{
+				var clickedButtonId = e.Interaction.Data.CustomId; 
+
+				if (clickedButtonId.StartsWith("button")) 
+				{	
+					if (!buttonClicks.ContainsKey(clickedButtonId))
+					{
+						buttonClicks[clickedButtonId] = 1;
+					}
+					else
+					{
+						buttonClicks[clickedButtonId]++;
+					}
+
+					// Delete the button click message only for the user who clicked the button
+					await e.Interaction.CreateFollowupMessageAsync(new DiscordFollowupMessageBuilder()
+									.WithContent("Your vote has been counted.")
+									.AsEphemeral(true));
+
+				}
+				else if (clickedButtonId == "end_poll")
+				{
+					string result = "Poll results:\n";
+					foreach (var optionId in buttonClicks.Keys)
+					{
+						result += $"{optionId}: {buttonClicks[optionId]}\n";
+					}
+					await ctx.Channel.SendMessageAsync(result);
+				}
+
+			};
+		}
+
+		private static List<string> PlayerMessageGenerator(int usersAmount)
+		{
+			List<string> playerList = new List<string>();
 
 			for (int i = 0; i < usersAmount; i++)
 			{
-				playerArray[i] = $"Игрок {i + 1}";
+				playerList.Add($"Игрок {i + 1}");
 			}
 
-			return playerArray;
+			return playerList;
 		}
 
-		private static DiscordMessageBuilder ButtonGenerator(int usersAmount, string[] message)
+
+		private static DiscordMessageBuilder ButtonGenerator(int usersAmount, List<string> message)
 		{
 			var builder = new DiscordMessageBuilder();
 
 			for (int i = 0; i < usersAmount; i++)
 			{
-				builder.AddComponents(new DiscordButtonComponent(ButtonStyle.Primary, $"{i}_top", message[i]));
+				builder.AddComponents(new DiscordButtonComponent(ButtonStyle.Primary, $"button{i}", message[i]));
 			}
-
+			builder.AddComponents(new DiscordButtonComponent(ButtonStyle.Danger, "end_poll", "End Poll"));
 			return builder;
 		}
 	}
